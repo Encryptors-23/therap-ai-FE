@@ -9,15 +9,16 @@ import { environment } from '../../environments/environment'
 })
 export class DataService {
   private baseUrl = environment.baseUrl
-  private params= new HttpParams()
+  private params = new HttpParams()
+  preSelectedQuestion = false
 
   constructor(private http: HttpClient) {
   }
 
-  sendMessage(hash:string): Observable<string> {
-    this.params= this.params.append('message', hash)
+  sendMessage(hash: string): Observable<string> {
+    this.params = this.params.append('message', hash)
     console.log(hash)
-    return this.http.post<string>(`${this.baseUrl}/idk`, this.params);
+    return this.http.post<string>(`${this.baseUrl}/idk`, this.params)
   }
 
 }

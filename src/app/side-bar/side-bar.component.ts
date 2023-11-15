@@ -10,17 +10,23 @@ import { DataService } from '../shared/data-service.service'
 })
 export class SideBarComponent {
   encryptedMsg = ''
+  decryptedMsg = ''
 
   constructor(private encryptionService: EncryptionService, private dataService: DataService) {
   }
 
   HandleQuestion(topic: string): void {
-    this.encryptedMsg =this.encryptionService.encryptQuestion(topic)
-      this.dataService.sendMessage(this.encryptedMsg).subscribe((encryption: string) => {
-        this.encryptedMsg = encryption
-      })
+    this.dataService.preSelectedQuestion = true
+    this.encryptedMsg = this.encryptionService.encryptQuestion(topic)
+    // this.dataService.sendMessage(this.encryptedMsg).subscribe((encryption: string) => {
+    //   this.encryptedMsg = encryption
+    // })
 
-    console.log(topic)
+    // console.log(this.encryptedMsg)
+
+    this.decryptedMsg = this.encryptionService.decryptAnswer(this.encryptedMsg)
+    // console.log(this.decryptedMsg)
+    console.log(this.dataService.preSelectedQuestion)
   }
 
 }
