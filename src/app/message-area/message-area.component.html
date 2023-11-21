@@ -1,2 +1,5 @@
+<div *ngFor="let message of messageList">
+  <app-topic-bubble  topic="{{message}}"></app-topic-bubble>
+</div>
 <app-disclaimer></app-disclaimer>
-<app-input></app-input>
+<app-input (topicEvent)="onTopicEvent($event)"></app-input>

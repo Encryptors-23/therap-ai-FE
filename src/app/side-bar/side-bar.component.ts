@@ -16,17 +16,7 @@ export class SideBarComponent {
   }
 
   HandleQuestion(topic: string): void {
-    this.dataService.preSelectedQuestion = true
-    this.encryptedMsg = this.encryptionService.encryptQuestion(topic)
-    // this.dataService.sendMessage(this.encryptedMsg).subscribe((encryption: string) => {
-    //   this.encryptedMsg = encryption
-    // })
-
-    // console.log(this.encryptedMsg)
-
-    this.decryptedMsg = this.encryptionService.decryptAnswer(this.encryptedMsg)
-    // console.log(this.decryptedMsg)
-    console.log(this.dataService.preSelectedQuestion)
+    this.dataService.preSelectedQuestion = topic
   }
 
 }

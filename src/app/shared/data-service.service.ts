@@ -10,7 +10,7 @@ import { environment } from '../../environments/environment'
 export class DataService {
   private baseUrl = environment.baseUrl
   private params = new HttpParams()
-  preSelectedQuestion = false
+  preSelectedQuestion = ''
 
   constructor(private http: HttpClient) {
   }

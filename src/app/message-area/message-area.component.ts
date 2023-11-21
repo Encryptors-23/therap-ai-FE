@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 
 @Component({
   selector: 'app-message-area',
@@ -6,7 +6,14 @@ import { Component, Input, OnInit } from '@angular/core'
   styleUrls: ['./message-area.component.css'],
 })
 export class MessageAreaComponent {
+  messageList: string[] = []
 
-  constructor() { }
+  constructor() {
+  }
+
+  onTopicEvent(topic: string): void {
+    this.messageList.push(topic)
+    console.log(topic)
+  }
 
 }

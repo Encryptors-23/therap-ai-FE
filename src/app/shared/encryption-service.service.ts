@@ -11,12 +11,12 @@ export class EncryptionService {
   constructor() {
   }
 
-  encryptQuestion(topic: string): string {
-    const encrypted = CryptoJS.AES.encrypt(topic, this.secretKey);
+  async encryptQuestion(topic: string): Promise<string> {
+    const encrypted = await CryptoJS.AES.encrypt(topic, this.secretKey);
     return encrypted.toString();
   }
 
-  decryptAnswer(hash: string): string{
+  decryptAnswer(hash: string): string {
     const decrypted = CryptoJS.AES.decrypt(hash, this.secretKey);
     return decrypted.toString(CryptoJS.enc.Utf8);
   }
