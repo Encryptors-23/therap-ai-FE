@@ -40,7 +40,6 @@
     "@angular/cli": "~14.1.0",
     "@angular/compiler-cli": "^14.1.0",
     "@types/crypto-js": "^4.2.1",
-    "@types/fernet": "^0.4.3",
     "@types/jasmine": "~4.0.0",
     "@typescript-eslint/eslint-plugin": "^5.43.0",
     "@typescript-eslint/parser": "5.43.0",

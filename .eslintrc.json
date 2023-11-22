@@ -50,7 +50,7 @@
         "max-len": [
           2,
           {
-            "code": 140,
+            "code": 170,
             "ignorePattern": "^import .*"
           }
         ],
