@@ -1,3 +1,4 @@
-<div class="bg-backgroundLight rounded-full cursor-pointer my-5">
-  <p class="p-3 text-center text-2xl" (click)="sendTopic(topic)">{{topic}}</p>
+<div class="bg-backgroundLight cursor-pointer my-10 z-50 text-black" [class]="!isResponse&&!isQuestion?'rounded-full w-full':''"
+     [ngClass]="(isQuestion && !isResponse )? 'rounded-full ml-auto w-7/12 mr-14': 'rounded-2xl w-7/12 bg-backgroundAccent border-2 border-accent text-[#B1AFAF]'">
+  <p class="p-3 pl-6 text-xl z-50" (click)="sendTopic(topic)">{{topic}}</p>
 </div>

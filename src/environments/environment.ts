@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  baseUrl: "something"
+  baseUrl: "http://localhost:5000",
+  key: "SUNIKYTCZVnN1DAl8q5Dg_-STFhU7SDFo7cbinOGoKs="
 };
 
 /*

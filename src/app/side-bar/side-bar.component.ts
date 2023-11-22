@@ -9,13 +9,10 @@ import { DataService } from '../shared/data-service.service'
   styleUrls: ['./side-bar.component.css'],
 })
 export class SideBarComponent {
-  encryptedMsg = ''
-  decryptedMsg = ''
-
-  constructor(private encryptionService: EncryptionService, private dataService: DataService) {
+  constructor(private dataService: DataService) {
   }
 
-  HandleQuestion(topic: string): void {
+  HandleQuestion(topic: any): void {
     this.dataService.preSelectedQuestion = topic
   }
 

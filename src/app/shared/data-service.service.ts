@@ -1,24 +1,27 @@
 import { Observable } from 'rxjs'
 import { Injectable } from '@angular/core'
-import { HttpClient, HttpParams } from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 
+import { ResponseParams } from '../interface/response-params'
+import { PromptParams } from '../interface/prompt-params'
 import { environment } from '../../environments/environment'
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataService {
-  private baseUrl = environment.baseUrl
-  private params = new HttpParams()
+  private baseUrl: string = environment.baseUrl
+  private headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' })
+
   preSelectedQuestion = ''
 
   constructor(private http: HttpClient) {
   }
 
-  sendMessage(hash: string): Observable<string> {
-    this.params = this.params.append('message', hash)
-    console.log(hash)
-    return this.http.post<string>(`${this.baseUrl}/idk`, this.params)
+  sendMessage(hash: string): Observable<ResponseParams> {
+    const data: PromptParams = { prompt: hash }
+    console.log('encrpted', hash)
+    return this.http.post<ResponseParams>(`${this.baseUrl}/bot`, data, { headers: this.headers })
   }
 
 }

@@ -1,8 +1,10 @@
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons/faArrowRight';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons/faArrowRight'
 import { Component, EventEmitter, Output } from '@angular/core'
 
-import { EncryptionService } from '../../shared/encryption-service.service';
+import { EncryptionService } from '../../shared/encryption-service.service'
 import { DataService } from '../../shared/data-service.service'
+import { ResponseParams } from '../../interface/response-params'
+import { Prompt } from '../../interface/prompt'
 
 @Component({
   selector: 'app-input',
@@ -10,9 +12,10 @@ import { DataService } from '../../shared/data-service.service'
   styleUrls: ['./input.component.css'],
 })
 export class InputComponent {
-  faArrow = faArrowRight;
+  faArrow = faArrowRight
   inputValue = ''
-  @Output() topicEvent: EventEmitter<string> = new EventEmitter<string>()
+  @Output() topicEvent: EventEmitter<Prompt> = new EventEmitter<Prompt>()
+  @Output() responseEvent: EventEmitter<Prompt> = new EventEmitter<Prompt>()
 
   constructor(public dataService: DataService, private encryptionService: EncryptionService) {
   }
@@ -28,12 +31,15 @@ export class InputComponent {
       this.dataService.preSelectedQuestion = ''
     }
     if (this.inputValue !== '') {
-      this.topicEvent.emit(this.inputValue)
-      this.encryptionService.encryptQuestion(this.inputValue).then((encrypted: string) => {
-        this.dataService.sendMessage(encrypted).subscribe((out: string) => {
-          console.log(out)
+      this.topicEvent.emit({ isResponse: false, isQuestion: true, prompt: this.inputValue })
+      this.encryptionService.encryptQuestion(this.inputValue)
+        .then((encrypted: string): void => {
+          this.dataService.sendMessage(encrypted).subscribe((response: ResponseParams): void => {
+            console.log('out', response)
+            this.responseEvent.emit({ isResponse: true, isQuestion: false, prompt: response.response })
+          })
         })
-      })
     }
+
   }
 }

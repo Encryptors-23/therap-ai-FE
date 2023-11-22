@@ -7,6 +7,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core'
 })
 export class TopicBubbleComponent {
   @Input() topic: string = ''
+  @Input() isResponse: boolean = false
+  @Input() isQuestion: boolean = false
   @Output() sendTopicEvent: EventEmitter<string> = new EventEmitter<string>()
 
 

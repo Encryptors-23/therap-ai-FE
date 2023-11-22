@@ -1,5 +1,9 @@
-<div *ngFor="let message of messageList">
-  <app-topic-bubble  topic="{{message}}"></app-topic-bubble>
+<div #container class="relative h-[85%] overflow-y-auto mx-4 w-full">
+  <app-disclaimer class="absolute"></app-disclaimer>
+  <div class="z-10 w-full">
+    <div *ngFor="let message of messageList" class="relative">
+      <app-topic-bubble [isResponse]="message.isResponse" [isQuestion]="message.isQuestion" topic="{{message.prompt}}" class="text-left block"></app-topic-bubble>
+    </div>
+  </div>
 </div>
-<app-disclaimer></app-disclaimer>
-<app-input (topicEvent)="onTopicEvent($event)"></app-input>
+<app-input (topicEvent)="onEvent($event)" (responseEvent)="onEvent($event)"></app-input>
