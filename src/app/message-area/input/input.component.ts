@@ -38,6 +38,9 @@ export class InputComponent {
 
       this.dataService.sendMessage(this.encryptedValue).subscribe((response: ResponseParams): void => {
         console.log('out', response)
+
+        // decrypt the encrypted answer
+        response.response = this.encryptionService.decryptAnswer(response.response)
         this.responseEvent.emit({ isResponse: true, isQuestion: false, prompt: response.response })
       })
     }
