@@ -14,6 +14,7 @@ import { Prompt } from '../../interface/prompt'
 export class InputComponent {
   faArrow = faArrowRight
   inputValue = ''
+  encryptedValue = ''
   @Output() topicEvent: EventEmitter<Prompt> = new EventEmitter<Prompt>()
   @Output() responseEvent: EventEmitter<Prompt> = new EventEmitter<Prompt>()
 
@@ -30,15 +31,15 @@ export class InputComponent {
       this.inputValue = this.dataService.preSelectedQuestion
       this.dataService.preSelectedQuestion = ''
     }
+
     if (this.inputValue !== '') {
       this.topicEvent.emit({ isResponse: false, isQuestion: true, prompt: this.inputValue })
-      this.encryptionService.encryptQuestion(this.inputValue)
-        .then((encrypted: string): void => {
-          this.dataService.sendMessage(encrypted).subscribe((response: ResponseParams): void => {
-            console.log('out', response)
-            this.responseEvent.emit({ isResponse: true, isQuestion: false, prompt: response.response })
-          })
-        })
+      this.encryptedValue = this.encryptionService.encryptQuestion(this.inputValue)
+
+      this.dataService.sendMessage(this.encryptedValue).subscribe((response: ResponseParams): void => {
+        console.log('out', response)
+        this.responseEvent.emit({ isResponse: true, isQuestion: false, prompt: response.response })
+      })
     }
 
   }
