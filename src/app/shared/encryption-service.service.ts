@@ -1,24 +1,40 @@
-import * as CryptoJS from 'crypto-js'
-import { Injectable } from '@angular/core'
+import * as crypto from 'crypto';
+import { Injectable } from '@angular/core';
 
-import { environment } from '../../environments/environment'
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EncryptionService {
-  private secretKey: string = 'vl/VxRuThkD+v+9S7twDR/eT9v+mye2EvaF4ojeRhTM='
+  private secretKey: Buffer = Buffer.from(
+    'vl/VxRuThkD+v+9S7twDR/eT9v+mye2EvaF4ojeRhTM=',
+    'base64'
+  );
+  private iv: Buffer = Buffer.from('PynS/ydkhb2EUMzVty9sww==', 'base64');
 
-  constructor() {
+  constructor() {}
+
+  encryptQuestion(topic: string): string {
+    // Promise<string> here? idk, I'm sure there's some minor changes to be made.
+    const cipher = crypto.createCipheriv(
+      'aes-256-cbc',
+      this.secretKey,
+      this.iv
+    );
+    let encrypted = cipher.update(topic, 'utf8', 'base64');
+    encrypted += cipher.final('base64');
+    return encrypted;
   }
 
-  async encryptQuestion(topic: string): Promise<string> {
-    const encrypted: CryptoJS.lib.CipherParams = CryptoJS.AES.encrypt(topic, this.secretKey, { iv: CryptoJS.enc.Utf8.parse('PynS/ydkhb2EUMzVty9sww==') })
-    return encrypted.toString()
-  }
-
-  decryptAnswer(hash: string): string {
-    const decrypted: CryptoJS.lib.WordArray = CryptoJS.AES.decrypt(hash, this.secretKey)
-    return decrypted.toString(CryptoJS.enc.Utf8)
+  decryptAnswer(encryptedAnswer: string): string {
+    const decipher = crypto.createDecipheriv(
+      'aes-256-cbc',
+      this.secretKey,
+      this.iv
+    );
+    let decrypted = decipher.update(encryptedAnswer, 'base64', 'utf8');
+    decrypted += decipher.final('utf8');
+    return decrypted;
   }
 }
