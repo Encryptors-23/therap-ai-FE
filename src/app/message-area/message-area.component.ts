@@ -19,13 +19,12 @@ export class MessageAreaComponent implements AfterViewChecked {
   }
 
   private scrollToBottom():void {
-    const container = this.container.nativeElement;
-    container.scrollTop = container.scrollHeight;
+    const container = this.container.nativeElement
+    container.scrollTop = container.scrollHeight
   }
 
   onEvent(message: Prompt): void {
     this.messageList.push(message)
-    console.log(message)
     this.scrollToBottom()
   }
 

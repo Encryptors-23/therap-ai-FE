@@ -20,7 +20,6 @@ export class DataService {
 
   sendMessage(hash: string): Observable<ResponseParams> {
     const data: PromptParams = { prompt: hash }
-    console.log('encrpted', hash)
     return this.http.post<ResponseParams>(`${this.baseUrl}/bot`, data, { headers: this.headers })
   }
 
