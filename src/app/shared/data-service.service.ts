@@ -10,7 +10,7 @@ import { environment } from '../../environments/environment'
   providedIn: 'root',
 })
 export class DataService {
-  private baseUrl: string = environment.baseUrl
+  private baseUrl: string = 'http://localhost:5200'
   private headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' })
 
   preSelectedQuestion = ''
