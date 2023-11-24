@@ -15,3 +15,6 @@ To create a production version of the application use ````ng build````. This wil
 
 In [encryption-service.service.ts](src/app/shared/encryption-service.service.ts) the encryption and decryption happens.
 It uses 2 environment variables to generate the cipher text.
+
+### Linting
+To maintain readable and structured code Lint is used. When ````ng lint --fix```` is ran it cleans up, formats and restructure the code according to the rules provided.
