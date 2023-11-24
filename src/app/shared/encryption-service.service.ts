@@ -1,12 +1,14 @@
 import * as CryptoJS from 'crypto-js'
 import { Injectable } from '@angular/core'
 
+import { environment } from '../../environments/environment'
+
 @Injectable({
   providedIn: 'root',
 })
 export class EncryptionService {
-  private secretKey = CryptoJS.enc.Base64.parse('vl/VxRuThkD+v+9S7twDR/eT9v+mye2EvaF4ojeRhTM=')
-  private iv = CryptoJS.enc.Base64.parse('PynS/ydkhb2EUMzVty9sww==')
+  private secretKey = CryptoJS.enc.Base64.parse(environment.key)
+  private iv = CryptoJS.enc.Base64.parse(environment.iv)
 
   encryptQuestion(topic: string): string {
     const plaintext = CryptoJS.enc.Utf8.parse(topic);
